@@ -21,11 +21,13 @@ def checkIP(ip):
 def checkNetworked():
     url = "https://www.baidu.com" 
     try:
-        res = requests.get(url = url, proxies={},timeout=3,headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.61"})
+        res = requests.get(url = url,verify=False, proxies={},timeout=3,headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.61"})
         print("[Internet Connected]:code="+str(res.status_code))
         return True
     except requests.exceptions.Timeout:
         print("[Error]:Internet seems not to be connected...")
+        return False
+    else:
         return False
 
 def login1(username, password):
@@ -45,15 +47,6 @@ def login3(username, password):
     data = {"DDDDD": ",0,%s" % "101001978006600", "upass": "123456"}
     res=requests.post(url = url,  proxies={})
     print("[%s]:" % url + res.text)
-    match res.text:
-        case 'jsonpReturn({"result":0,"msg":"无法获取用户认证账号！","ret_code":"1"});':
-            return -1
-        case 'jsonpReturn({"result":1,"msg":"Portal协议认证成功！"});':
-            return 0
-        case 'jsonpReturn({"result":0,"msg":"AC999","ret_code":2});':
-            return 1
-        case _:
-            return -1
 
 def login(username, password):
     login1(username, password)

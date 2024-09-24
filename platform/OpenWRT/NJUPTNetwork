@@ -1,0 +1,20 @@
+#!/bin/sh /etc/rc.common
+# "new" style init script
+# Look at /lib/functions/service.sh on a running system for explanations of what other SERVICE_
+# options you can use, and when you might want them.
+
+
+START=99
+APP=mrelay
+SERVICE_WRITE_PID=1
+SERVICE_DAEMONIZE=1
+
+start() {
+        service_start /bin/sh /root/NJUPTnetwork-master/start.sh
+        echo "NJUPTnetwork started"
+
+}
+
+stop() {
+        service_stop /bin/sh /root/NJUPTnetwork-master/stop.sh
+}
